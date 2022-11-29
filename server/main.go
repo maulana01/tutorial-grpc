@@ -4,6 +4,7 @@ import (
 	"log"
 	"net"
 
+	appproto "github.com/Xanvial/tutorial-grpc/proto"
 	"github.com/Xanvial/tutorial-grpc/server/handler"
 	"github.com/Xanvial/tutorial-grpc/server/usecase"
 	"google.golang.org/grpc"
@@ -24,6 +25,8 @@ func main() {
 	log.Println("productHandler:", productHandler) // just to avoid compile error, remove this after implementing other codes
 
 	grpcServer := grpc.NewServer()
+
+	appproto.RegisterProductServiceServer(grpcServer, productHandler)
 
 	// register server using reflection
 	reflection.Register(grpcServer)
